@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* Tap Dance */
-#define TAPPING_TERM 175
-
 /* ISO Nordic Fix for Space Cadet Keys */
 #define LSPO_KEY KC_8
 #define RSPC_KEY KC_9
