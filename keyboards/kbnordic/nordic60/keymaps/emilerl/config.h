@@ -16,8 +16,7 @@
 
 #pragma once
 
-/* Tap Dance Settings */
-#define TAPPING_TERM 200
+#define LEADER_TIMEOUT 800
 
 /* ISO Nordic Fix for Space Cadet Keys */
 #define LSPO_KEY KC_8
