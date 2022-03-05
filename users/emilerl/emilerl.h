@@ -19,6 +19,7 @@
 enum layers{
   MAC_BASE,
   MAC_FN,
+  MAC_FN2,
   WIN_BASE,
   WIN_FN
 };
