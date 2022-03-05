@@ -16,6 +16,23 @@
 
 #pragma once
 
-/* ISO Nordic Fix for Space Cadet Keys */
-#define LSPO_KEY KC_8
-#define RSPC_KEY KC_9
+enum layers{
+  MAC_BASE,
+  MAC_FN,
+  WIN_BASE,
+  WIN_FN
+};
+
+enum custom_keycodes {
+    KC_MISSION_CONTROL = SAFE_RANGE,
+    KC_LAUNCHPAD,
+    KC_DBLBR,
+    KC_MLOCK,
+    KC_FRSH,
+    KC_PST
+};
+
+#define KC_TASK LGUI(KC_TAB)
+#define KC_FLXP LGUI(KC_E)
+#define KC_MCTL KC_MISSION_CONTROL
+#define KC_LPAD KC_LAUNCHPAD
