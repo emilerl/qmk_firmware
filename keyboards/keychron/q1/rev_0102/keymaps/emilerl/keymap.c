@@ -46,14 +46,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,                      KC_PGDN,
         MO(1),    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,  KC_NUHS,  KC_ENT,             KC_HOME,
         KC_LSPO,  KC_GRV,   KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,            KC_RSPC,  KC_UP,
-        KC_LCTL,  KC_LALT,  KC_LGUI,                                KC_SPC,                                 KC_RGUI,  MO(2),    KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KC_LCTL,  KC_LALT,  KC_LGUI,                                KC_SPC,                                 KC_RGUI,  KC_LEAD,  KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [MAC_FN] = LAYOUT_iso_83(
         RESET,              KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_TRNS,  KC_FRSH,
-        KC_TRNS,  KC_DATE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_DBLBR ,KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,
+        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_DBLBR ,KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,
         RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  KC_TRNS,  KC_BSPC,  KC_UP,    KC_DEL,   KC_TRNS,  KC_TRNS,  KC_TRNS,                      KC_TRNS,
         KC_TRNS,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,
-        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_PST,   KC_BEST,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
+        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_PST,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
         KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
 
     [WIN_BASE] = LAYOUT_iso_83(
@@ -105,16 +105,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_LCTL);
             }
             return false;  // Skip all further processing of this key
-        case KC_DATE: // Inserts today's date with Alfred snippet
-            if (record->event.pressed) {
-                SEND_STRING("<date");
-            }
-            return false;  // Skip all further processing of this key
-        case KC_BEST: // Sends the text best regards
-            if (record->event.pressed) {
-                SEND_STRING("Best regards,\nEmil");
-            }
-            return false;  // Skip all further processing of this key
         case KC_FRSH: // Trigger the Start Fresh Keyboard Maestro command
             if (record->event.pressed) {
                 register_code(KC_LCTL);
@@ -145,5 +135,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;  // Skip all further processing of this key
         default:
             return true;  // Process all other keycodes normally
+    }
+}
+
+LEADER_EXTERNS();
+
+void matrix_scan_user(void) {
+    LEADER_DICTIONARY() {
+        leading = false;
+        leader_end();
+
+        SEQ_ONE_KEY(KC_B) {
+            SEND_STRING("Best regards,\nEmil");
+        }
+
+        SEQ_ONE_KEY(KC_D) {
+            SEND_STRING("<date");
+        }
+
+        SEQ_ONE_KEY(KC_M) {
+            SEND_STRING("Mvh,\nEmil");
+        }
+
+        SEQ_TWO_KEYS(KC_E, KC_E) {
+            SEND_STRING("ee");
+            SEND_STRING(SS_LALT("2"));
+            SEND_STRING("a2isystems.com");
+        }
+
+        SEQ_THREE_KEYS(KC_E, KC_B, KC_U) {
+            SEND_STRING("emil");
+            SEND_STRING(SS_LALT("2"));
+            SEND_STRING("buglix.org");
+        }
     }
 }
