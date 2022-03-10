@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef RGB_MATRIX_ENABLE
-/*
+
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=indicator-examples
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (get_highest_layer(layer_state) > 0) {
@@ -61,6 +61,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
     }
 }
-*/
+
 
 #endif
