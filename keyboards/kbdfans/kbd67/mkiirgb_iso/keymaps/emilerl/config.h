@@ -15,3 +15,6 @@
  */
 
 #pragma once
+
+// Turn the RGB off when the computer is sleeping
+#define RGBLIGHT_SLEEP
